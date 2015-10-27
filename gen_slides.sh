@@ -11,7 +11,7 @@ rendered_slides_dir="$root/slides-rendered"
 mkdir -p $rendered_slides_dir
 echo "Created directory: $rendered_slides_dir"
 
-# Generating HTML
+# Rendering slides as HTML
 echo -e "Processing folders:\n"
 for dir in $(ls -d [0-9]*/);
 do
