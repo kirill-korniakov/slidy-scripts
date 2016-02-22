@@ -59,17 +59,17 @@ def extract_questions(tup):
 
 def extract_files_with_control_questions():
     files = gglob("./", "*.md")
-    print("Full list of files found:")
-    print("\n - ".join(files))
+    # print("Full list of files found:")
+    # print("\n - ".join(files))
 
     groups = split_into_groups(files)
 
     if len(groups[0]):
-        print("These files do not have questions at all:")
-        print("\n - ".join(groups[0]))
+        print("These files do not contain control questions:")
+        print(" - " + "\n - ".join(groups[0]))
     if len(groups[2]):
         print("These files have multiple questions:")
-        print("\n - ".join(groups[2]))
+        print(" - " + "\n - ".join(groups[2]))
 
     return sorted(groups[1])
 
