@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf8 -*-
 
+import os
+
 from functions import gglob, cat, grep
 
 header = "# Контрольные вопросы"
@@ -26,11 +28,21 @@ def split_into_groups(files):
 
     return (has_no_questions, has_questions, has_multiple_questions)
 
-def extract_questions(file):
-    questions = ""
+def make_header(tup):
+    # Format:
+    # <a name="text"/>
+    # ## 1. Текстовые форматы
 
-    lines = cat(file)
-    questions += lines[0]
+    header = "<a name=\"" + tup[1] + "\"/>\n"
+    digit = str(int(os.path.basename(tup[0])[:2]) + 1)
+    header += "## " + digit + ". " + tup[2] + "\n"
+
+    return header
+
+def extract_questions(tup):
+    lines = cat(tup[0])
+
+    questions = make_header(tup)
 
     copying = False
     for line in lines:
@@ -45,7 +57,7 @@ def extract_questions(file):
 
     return questions
 
-if __name__ == '__main__':
+def extract_files_with_control_questions():
     files = gglob("./", "*.md")
     print("Full list of files found:")
     print("\n - ".join(files))
@@ -59,13 +71,45 @@ if __name__ == '__main__':
         print("These files have multiple questions:")
         print("\n - ".join(groups[2]))
 
-    questions = ""
-    for file in groups[1]:
-        questions += extract_questions(file)
+    return sorted(groups[1])
 
-    # print("Extracted questions:")
-    # print(questions)
+def extract_headers(files):
+    paths_tags_names = []
+
+    for file in files:
+        path = file
+        tag = os.path.splitext(os.path.basename(file))[0][3:]
+        with open(file, 'r') as f: first_line = f.readline()
+        title = first_line[2:-1]
+
+        paths_tags_names.append((path, tag, title))
+
+    return paths_tags_names
+
+def generate_toc(paths_tags_names):
+    toc = ""
+
+    toc += "# Список контрольных вопросов\n\n"
+    toc += "---------------------\n\n"
+    for tup in paths_tags_names:
+        #   1. [Текстовые форматы](#text)
+        toc += "  1. [" + tup[2] + "](#" + tup[1] + ")\n"
+    toc += "\n---------------------\n\n"
+
+    return toc
+
+if __name__ == '__main__':
+    files = extract_files_with_control_questions()
+    paths_tags_names = extract_headers(files)
+    toc = generate_toc(paths_tags_names)
+
+    content = toc
+
+    print("Getting questions from:")
+    for tup in paths_tags_names:
+        print(" - " + tup[0])
+        content += extract_questions(tup)
 
     output = open("extracted-questions.md", 'w')
-    output.write(questions)
+    output.write(content)
     output.close()
