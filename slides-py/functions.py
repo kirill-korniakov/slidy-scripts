@@ -17,8 +17,15 @@ def grep(text, pattern):
     p = re.compile(pattern)
     lines = []
     i = 0
-    for l in text:
+    for line in text:
         i += 1
-        if p.match(l):
+        if p.match(line):
             lines += [i]
     return lines
+
+def get_grep(text, pattern):
+    p = re.compile(pattern)
+    out = []
+    for line in text:
+        out += p.findall(line)
+    return out

@@ -6,16 +6,9 @@ import re
 import subprocess
 import traceback
 
-from functions import gglob, cat, grep
+from functions import gglob, cat, grep, get_grep
 
 root = os.path.join(subprocess.getoutput('git rev-parse --show-toplevel'), 'slides')
-
-def get_grep(text, pattern):
-    p = re.compile(pattern)
-    out = []
-    for line in text:
-        out += p.findall(line)
-    return out
 
 def check_size(name, size):
     return True if os.path.getsize(name) < size else False
