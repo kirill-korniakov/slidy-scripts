@@ -14,8 +14,8 @@ root = os.path.join(subprocess.getoutput('git rev-parse --show-toplevel'), 'slid
 def get_grep(text, pattern):
     p = re.compile(pattern)
     out = []
-    for l in text:
-        out += p.findall(l)
+    for line in text:
+        out += p.findall(line)
     return out
 
 def check_size(name, size):
@@ -112,26 +112,33 @@ def check_all_file_name():
     return err
 
 
-def check_all_images_is_used():
+def check_all_images_are_used():
     who_am_i()
     err = False
     global root
     files = gglob(root, "*.md")
     for f in files:
         path = os.path.dirname(os.path.abspath(f))
-        all_images = gglob(path, "*.png") + gglob(path, "*.jpg") + gglob(path, "*.jpeg") + gglob(path, "*.gif") + gglob(
-            path, "*.svg")
-        m = get_grep(cat(f), "!\[\]\(([^)]*)\)")
-        for img in m:
-            full_path = os.path.join(path, img).replace('/./', '/')
-            if os.path.exists(full_path) and (full_path in all_images):
-                all_images.remove(full_path)
+        if not os.path.exists(path + "/pix"):
+            continue
 
-        if len(all_images) > 0:
-            print("images is not used: ")
-            for i in all_images:
+        existing_images = gglob(path, "*.png")  + gglob(path, "*.jpg") +\
+                     gglob(path, "*.jpeg") + gglob(path, "*.gif") +\
+                     gglob(path, "*.svg")
+
+        mentioned_images = get_grep(cat(f), "!\[\]\(([^)]*)\)")
+
+        for img in mentioned_images:
+            full_path = os.path.join(path, img).replace('/./', '/')
+            if os.path.exists(full_path) and (full_path in existing_images):
+                existing_images.remove(full_path)
+
+        if len(existing_images) > 0:
+            print("images are not used: ")
+            for i in existing_images:
                 print('      - {}'.format(i))
-            err = False  # change to do error
+            err = False  # TODO: change to Truem so check fails
+
     return err
 
 
@@ -146,7 +153,7 @@ def check_all_images_exist():
         for img in m:
             full_path = os.path.join(path, img).replace('/./', '/')
             if not os.path.exists(full_path):
-                print('error: {} not exist'.format(full_path))
+                print('error: {} does not exist'.format(full_path))
                 err = True
     return err
 
@@ -162,7 +169,7 @@ def main():
     err = err or check_all_file_size(2500 * 1024)
     err = err or check_all_file_name()
     err = err or check_all_images_exist()
-    err = err or check_all_images_is_used()
+    err = err or check_all_images_are_used()
 
     if err:
         print("FAIL: validation finished with errors")
