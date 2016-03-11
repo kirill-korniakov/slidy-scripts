@@ -11,7 +11,9 @@ def gglob(path, f):
     return l
 
 def cat(name):
-    return open(name, 'r').readlines()
+    with open(name) as f:
+        content = f.readlines()
+    return content
 
 def grep(text, pattern):
     p = re.compile(pattern)
