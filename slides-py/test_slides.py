@@ -36,16 +36,21 @@ class TestSlides(unittest.TestCase):
 
         self.assertEqual(False, error)
 
+    # def test_no_trailing_spaces(self):
+    #     error = False
+
+    #     for f in self.md_files:
+    #         lines = grep(cat(f), ".*[ ]+$")
+    #         if len(lines) > 0:
+    #             print('error: in {} has space in the end of lines {}'.format(f, lines))
+    #             error = True
+
+    #     self.assertEqual(False, error)
+
     def test_no_trailing_spaces(self):
-        error = False
-
-        for f in self.md_files:
-            lines = grep(cat(f), ".*[ ]+$")
-            if len(lines) > 0:
-                print('error: in {} has space in the end of lines {}'.format(f, lines))
-                error = True
-
-        self.assertEqual(False, error)
+        for file in self.md_files:
+            lines = grep(cat(file), ".*[ ]+$")
+            self.assertEqual(0, len(lines))
 
     def test_use_highlighting(self):
         error = False
