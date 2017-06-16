@@ -3,7 +3,7 @@ set -e
 echo "Start rendering HTML slides from Markdown"
 
 # Get the Git root
-root="$(git rev-parse --show-toplevel)"
+root="$(cd .. && git rev-parse --show-toplevel)"
 cd $root/slides
 
 python3 "./slidy-scripts/slides-py/test_slides.py"
