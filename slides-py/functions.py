@@ -11,7 +11,7 @@ def gglob(path, f):
     return l
 
 def cat(name):
-    with open(name) as f:
+    with open(name, encoding="utf8") as f:
         content = f.readlines()
     return content
 

@@ -107,7 +107,7 @@ class TestSlides(unittest.TestCase):
             mentioned_images = get_grep(cat(f), "!\[\]\(([^)]*)\)")
 
             for img in mentioned_images:
-                full_path = os.path.join(path, img).replace('/./', '/')
+                full_path = os.path.join(path, img).replace('/./', '/').replace('\./pix/', '\\pix\\')
                 if os.path.exists(full_path) and (full_path in existing_images):
                     existing_images.remove(full_path)
 

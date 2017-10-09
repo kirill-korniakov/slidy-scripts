@@ -6,7 +6,7 @@ echo "Start rendering HTML slides from Markdown"
 root="$(git rev-parse --show-toplevel)"
 cd $root/slides
 
-python3 "./slidy-scripts/slides-py/test_slides.py"
+python "./slidy-scripts/slides-py/test_slides.py"
 
 # Create directory for rendered slides
 rendered_slides_dir="$root/slides-rendered"
