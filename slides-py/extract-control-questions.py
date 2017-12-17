@@ -33,8 +33,8 @@ def make_header(tup):
     # <a name="text"/>
     # ## 1. Текстовые форматы
 
-    header = "<a name=\"" + tup[1] + "\"/>\n"
-    digit = str(int(os.path.basename(tup[0])[:2]) + 1)
+    header = "<a name=\"" + tup[1] + "\"/>\n\n"
+    digit = str(int(os.path.basename(tup[0])[:2]))
     header += "## " + digit + ". " + tup[2] + "\n"
 
     return header
