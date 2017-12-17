@@ -71,9 +71,11 @@ class TestSlides(unittest.TestCase):
         error = False
 
         files = gglob(self.root, "*")
+        files = [f for f in files if os.path.splitext(f)[1] != ".pdf"]
+
         for f in files:
             if not os.path.getsize(f) < self.MAX_FILE_SIZE:
-                print('error: sizeof({}) >= {}'.format(f, self.MAX_FILE_SIZE))
+                print('Error: size of {} >= {}'.format(f, self.MAX_FILE_SIZE))
                 error = True
 
         self.assertEqual(False, error)
