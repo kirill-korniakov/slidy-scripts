@@ -79,7 +79,7 @@ def extract_headers(files):
     for file in files:
         path = file
         tag = os.path.splitext(os.path.basename(file))[0][3:]
-        with open(file, 'r') as f: first_line = f.readline()
+        with open(file, 'r', encoding="utf8") as f: first_line = f.readline()
         title = first_line[2:-1]
 
         paths_tags_names.append((path, tag, title))
@@ -110,6 +110,6 @@ if __name__ == '__main__':
         print(" - " + tup[0])
         content += extract_questions(tup)
 
-    output = open("extracted-questions.md", 'w')
+    output = open("extracted-questions.md", 'w', encoding="utf8")
     output.write(content)
     output.close()
