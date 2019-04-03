@@ -7,7 +7,7 @@
     - `{date}` автоматически печатать дату генерации слайдов
 
   - Билд
-    - Принести сюда скрипты для публикации слайдов на `gh-pages`
+    - Move publish-html to this repo
     - Научиться печатать и публиковать PDF на TravisCI
 
   - introduce global links
