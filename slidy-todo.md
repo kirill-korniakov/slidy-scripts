@@ -1,11 +1,12 @@
-# TODO
+# Slidy TODO
 
 - Implement macroses:
   - `{{toc}}`
   - `{{date}}` автоматически печатать дату генерации слайдов
+  - {{author}}
 
 - Build
-  - Move publish-html to this repo (switch devtools and agile)
+  - Move `publish-html` to this repo (switch devtools and agile)
   - create and move here travis commands
   - autogenerate list of slides using JS
   - rename `slides-py` to `scripts`

@@ -110,6 +110,6 @@ if __name__ == '__main__':
         print(" - " + tup[0])
         content += extract_questions(tup)
 
-    output = open("extracted-questions.md", 'w', encoding="utf8")
+    output = open("slides/control-questions.md", 'w', encoding="utf8")
     output.write(content)
     output.close()

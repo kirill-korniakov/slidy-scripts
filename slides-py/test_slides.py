@@ -78,7 +78,7 @@ class TestSlides(unittest.TestCase):
                 path = os.path.abspath(os.path.join(self.root, f))
                 file = os.path.join(path, os.path.basename(path) + '.md')
                 if not os.path.exists(file):
-                    print('error: folder {} has not {}'.format(f, file))
+                    print('error: folder {} has no {}. Probably the name is different.'.format(f, file))
                     error = True
 
         self.assertEqual(False, error)
