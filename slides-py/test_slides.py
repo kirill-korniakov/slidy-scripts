@@ -69,7 +69,7 @@ class TestSlides(unittest.TestCase):
 
         self.assertEqual(False, error)
 
-    def test_all_file_name(self):
+    def disable_test_all_file_name(self):
         error = False
 
         files = os.listdir(self.root)

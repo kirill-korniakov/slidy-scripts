@@ -30,8 +30,7 @@ do
         echo "ERROR: No *.md file"
         # exit 1
     else
-        filename=$(basename "$f")
-        filename="${filename%.*}"
+        filename=$(basename "$dir")
         rendered="$rendered_slides_dir/$filename.html"
         if [ $f -nt $rendered ]; then
             echo "Processing $f"

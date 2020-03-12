@@ -34,7 +34,7 @@ def make_header(tup):
     # ## 1. Текстовые форматы
 
     header = "<a name=\"" + tup[1] + "\"/>\n\n"
-    digit = str(int(os.path.basename(tup[0])[:2]))
+    digit = str(int(os.path.dirname(tup[0])[2:4]))
     header += "## " + digit + ". " + tup[2] + "\n"
 
     return header
@@ -78,7 +78,7 @@ def extract_headers(files):
 
     for file in files:
         path = file
-        tag = os.path.splitext(os.path.basename(file))[0][3:]
+        tag = os.path.splitext(os.path.dirname(file))[0][5:]
         with open(file, 'r', encoding="utf8") as f: first_line = f.readline()
         title = first_line[2:-1]
 
